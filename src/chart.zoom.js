@@ -250,7 +250,7 @@ var zoomPlugin = {
 		var options = chartInstance.options;
 		var panThreshold = helpers.getValueOrDefault(options.pan ? options.pan.threshold : undefined, zoomNS.defaults.pan.threshold);
 
-		if (options.zoom.drag) {
+		if (options.zoom && options.zoom.drag) {
 			// Only want to zoom horizontal axis
 			options.zoom.mode = 'x';
 			
@@ -272,8 +272,8 @@ var zoomPlugin = {
 					var chartArea = chartInstance.chartArea;
 					var yAxis = getYAxis(chartInstance);
 					var beginPoint = chartInstance._dragZoomStart;
-					var startX = Math.min(beginPoint.x, event.x) ;
-					var endX = Math.max(beginPoint.x, event.x);
+					var startX = Math.min(beginPoint.offsetX, event.offsetX) ;
+					var endX = Math.max(beginPoint.offsetX, event.offsetX);
 					var dragDistance = endX - startX;
 					var chartDistance = chartArea.right - chartArea.left;
 					var zoom = 1 + ((chartDistance - dragDistance) / chartDistance );
@@ -374,8 +374,8 @@ var zoomPlugin = {
 			var yAxis = getYAxis(chartInstance);
 			var beginPoint = chartInstance._dragZoomStart;
 			var endPoint = chartInstance._dragZoomEnd;
-			var startX = Math.min(beginPoint.x, endPoint.x);
-			var endX = Math.max(beginPoint.x, endPoint.x);
+			var startX = Math.min(beginPoint.offsetX, endPoint.offsetX);
+			var endX = Math.max(beginPoint.offsetX, endPoint.offsetX);
 			var rectWidth = endX - startX;
 		
 			
